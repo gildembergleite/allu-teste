@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import { ReactNode } from 'react'
 import './globals.css'
+import { RootProvider } from './provider'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -10,8 +11,7 @@ const fontSans = FontSans({
 })
 
 export const metadata: Metadata = {
-  title: 'Boilerplate NextJS',
-  description: 'With shadcn/ui and husky configured',
+  title: 'ALLU',
 }
 
 interface RootLayoutProps {
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           fontSans.variable,
         )}
       >
-        {children}
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   )
