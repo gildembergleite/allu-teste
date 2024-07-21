@@ -35,7 +35,7 @@ export default function ProductDetailsPage({
   })
 
   return (
-    <div className="w-full max-w-6xl mx-auto py-12 px-4 md:px-6">
+    <main className="w-full h-full min-h-[calc(100vh-160px)] max-w-6xl mx-auto py-12 px-4 md:px-6">
       <div className="flex flex-col gap-8">
         <div className="mb-6">
           <h1 className="text-3xl font-bold">{product?.name}</h1>
@@ -121,6 +121,6 @@ export default function ProductDetailsPage({
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
