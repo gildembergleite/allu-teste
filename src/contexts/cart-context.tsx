@@ -3,6 +3,7 @@
 import { CartItem } from '@/@types/cart-item'
 import { Product } from '@/@types/product'
 import { createContext, ReactNode, useEffect, useReducer } from 'react'
+import { toast } from 'sonner'
 import { cartReducer, initialCartState } from '../reducers/cart-reducer'
 
 interface CartContextProps {
@@ -28,6 +29,12 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   }
 
   function addToCart(product: Product) {
+    const existingProduct = state.cart.find((item) => item.id === product.id)
+
+    if (existingProduct) {
+      toast.warning('O produto ja foi adicionado!')
+    }
+
     dispatch({ type: 'ADD_TO_CART', payload: product })
     saveCartInLocalStorage()
   }
