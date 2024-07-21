@@ -2,7 +2,8 @@ export type Product = {
   id: number
   name: string
   technicalDetails: string
-  annualValue: number
+  annualPrice: number
+  monthlyPrice: number
   images: {
     id: string
     url: string

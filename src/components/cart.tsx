@@ -20,7 +20,7 @@ export function Cart() {
   const { cart, removeFromCart } = useCart()
 
   const totalAmount = cart.reduce(
-    (total, item) => total + item.annualValue * item.quantity,
+    (total, item) => total + item.annualPrice * item.quantity,
     0,
   )
 
@@ -58,12 +58,12 @@ export function Cart() {
             <div className="flex w-full items-center justify-between">
               <div className="flex items-center gap-4">
                 <Avatar>
-                  <AvatarImage src={item.photos[0]} />
+                  <AvatarImage src={item.images[0].url} />
                 </Avatar>
                 <div>
                   <div className="font-medium">{item.name}</div>
                   <div className="text-muted-foreground text-sm">
-                    {formatCurrencyToBRL(item.annualValue)}
+                    {formatCurrencyToBRL(item.annualPrice)}
                   </div>
                 </div>
               </div>

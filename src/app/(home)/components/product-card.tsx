@@ -37,7 +37,7 @@ export function ProductCard(product: Product) {
         </p>
         <div className="mt-4 flex items-center justify-between">
           <span className="text-primary font-semibold">
-            {formatCurrencyToBRL(product.annualValue)}
+            {formatCurrencyToBRL(product.annualPrice)}
           </span>
           <div className="flex items-center gap-2">
             <Button
