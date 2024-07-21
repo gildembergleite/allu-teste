@@ -1,3 +1,5 @@
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
@@ -28,8 +30,9 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
         )}
       >
         <RootProvider>
-          <header></header>
+          <Header />
           {children}
+          <Footer />
         </RootProvider>
       </body>
     </html>
