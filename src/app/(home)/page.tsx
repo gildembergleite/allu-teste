@@ -15,9 +15,22 @@ export default function HomePage() {
   const router = useRouter()
 
   const [search, setSearch] = useState('')
+  const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
+    null,
+  )
 
   function handleSearch(e: ChangeEvent<HTMLInputElement>) {
-    setTimeout(() => setSearch(e.target.value), 1500)
+    const value = e.target.value
+
+    if (typingTimeout) {
+      clearTimeout(typingTimeout)
+    }
+
+    setTypingTimeout(
+      setTimeout(() => {
+        setSearch(value)
+      }, 1000),
+    )
   }
 
   const {
@@ -62,17 +75,17 @@ export default function HomePage() {
     <div className="w-full max-w-6xl mx-auto px-4 md:px-6 py-8">
       <div className="flex flex-col items-center mb-6 gap-4">
         <h1 className="text-2xl font-bold">Catálogo de Produtos</h1>
-        <div className="relative">
+        <div className="relative w-full">
           <SearchIcon className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Buscar produtos..."
             onChange={handleSearch}
-            className="w-full bg-background shadow-none appearance-none pl-8 md:w-[420px]"
+            className="w-full bg-background shadow-none appearance-none pl-8"
           />
         </div>
       </div>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-y-12 gap-x-8">
+      <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
         {products.length > 0
           ? products.map((product) => (
               <div

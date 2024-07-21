@@ -3,14 +3,14 @@ import { products } from './data-base-mock'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const query = searchParams.get('query') || ''
+  const search = searchParams.get('search') || ''
   const page = parseInt(searchParams.get('page') || '1')
   const perPage = parseInt(searchParams.get('perPage') || '10')
 
   const filteredProducts = products.filter(
     (product) =>
-      product.name.toLowerCase().includes(query.toLowerCase()) ||
-      product.technicalDetails.toLowerCase().includes(query.toLowerCase()),
+      product.name.toLowerCase().includes(search.toLowerCase()) ||
+      product.technicalDetails.toLowerCase().includes(search.toLowerCase()),
   )
 
   const total = filteredProducts.length

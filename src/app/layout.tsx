@@ -27,7 +27,10 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           fontSans.variable,
         )}
       >
-        <RootProvider>{children}</RootProvider>
+        <RootProvider>
+          <header></header>
+          {children}
+        </RootProvider>
       </body>
     </html>
   )
