@@ -3,5 +3,9 @@ export type Product = {
   name: string
   technicalDetails: string
   annualValue: number
-  photos: string[]
+  images: {
+    id: string
+    url: string
+    productId: string
+  }[]
 }

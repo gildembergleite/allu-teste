@@ -19,7 +19,7 @@ export function ProductCard(product: Product) {
           className="flex justify-center items-center w-full h-full"
         >
           <Image
-            src={product.photos[0]}
+            src={product.images[0].url}
             alt={product.name}
             width={0}
             height={0}
