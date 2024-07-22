@@ -10,6 +10,10 @@ const nextConfig = {
         hostname: 'yacare-products-image.s3.sa-east-1.amazonaws.com',
         protocol: 'https',
       },
+      {
+        hostname: 'www.allugator.com',
+        protocol: 'https',
+      },
     ],
   },
 }
