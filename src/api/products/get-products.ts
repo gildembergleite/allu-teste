@@ -5,6 +5,7 @@ interface GetProductsRequest {
   page?: number | string
   perPage?: number | string
   search?: string
+  categoryId?: string
 }
 interface GetProductsResponse {
   total: number

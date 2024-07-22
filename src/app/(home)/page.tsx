@@ -10,14 +10,23 @@ import { SkeletonCard } from './components/skeleton-card'
 
 export default function HomePage() {
   const [search, setSearch] = useState('')
+  const [categoryId, setCategoryId] = useState('')
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
     null,
   )
 
-  function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+  function handleChangeSearch(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value
     if (typingTimeout) clearTimeout(typingTimeout)
     setTypingTimeout(setTimeout(() => setSearch(value), 1000))
+  }
+
+  function handleChangeCategory(category: string) {
+    if (category === 'all') {
+      return setCategoryId('')
+    }
+
+    setCategoryId(category)
   }
 
   const {
@@ -26,15 +35,19 @@ export default function HomePage() {
     isFetchingNextPage,
   } = useInfiniteQuery({
     initialPageParam: 1,
-    queryKey: ['products', search],
+    queryKey: ['products', search, categoryId],
     queryFn: ({ pageParam }) =>
       getProducts({
         page: pageParam,
         perPage: 6,
         search,
+        categoryId,
       }),
     getNextPageParam: (lastPage) => {
-      if (lastPage.page !== lastPage.totalPages) {
+      if (
+        lastPage.products.length > 0 &&
+        lastPage.page !== lastPage.totalPages
+      ) {
         return Number(lastPage.page) + 1
       }
     },
@@ -60,16 +73,25 @@ export default function HomePage() {
     <div className="w-full max-w-6xl mx-auto px-4 md:px-6 py-8">
       <div className="flex flex-col items-center mb-6 gap-4">
         <h1 className="text-2xl font-bold">Catálogo de Produtos</h1>
-        <SearchProducts searchFn={handleSearch} />
+        <SearchProducts
+          inputSearchFn={handleChangeSearch}
+          categorySearchFn={handleChangeCategory}
+        />
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
-        {products.length > 0
-          ? products.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))
-          : Array.from({ length: 6 }).map((_, index) => (
-              <SkeletonCard key={index} />
-            ))}
+        {!productsPages &&
+          Array.from({ length: 6 }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        {productsPages && products.length === 0 ? (
+          <div className="flex col-span-2 w-full h-full min-h-[calc(100vh-470px)] justify-center items-center">
+            Nao existem resultados!
+          </div>
+        ) : (
+          products.map((product) => (
+            <ProductCard key={product.id} {...product} />
+          ))
+        )}
       </div>
       {isFetchingNextPage && (
         <div className="mt-8 flex justify-center">
