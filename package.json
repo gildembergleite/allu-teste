@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate-nextjs-shadcn-husky",
+  "name": "allu-ecommerce-nextjs-ts-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -24,6 +24,7 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "sharp": "^0.33.4",
     "sonner": "^1.5.0",
     "tailwind-merge": "2.2.1",
     "tailwindcss-animate": "1.0.7"
