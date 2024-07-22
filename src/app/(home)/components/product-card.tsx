@@ -2,14 +2,18 @@ import { Product } from '@/@types/product'
 import { Button } from '@/components/ui/button'
 import { useCart } from '@/hooks/use-cart'
 import { formatCurrencyToBRL } from '@/utils/format-currency-to-brl'
-import { ShoppingCartIcon } from 'lucide-react'
+import { CheckIcon, ShoppingCartIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 export function ProductCard(product: Product) {
-  const { addToCart } = useCart()
+  const { cart, addToCart } = useCart()
   const router = useRouter()
+
+  const existingProduct = cart.find((item) => item.id === product.id)
+
+  const addedProduct = existingProduct?.id === product.id
 
   return (
     <div className="flex flex-col bg-card h-full rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border">
@@ -49,10 +53,14 @@ export function ProductCard(product: Product) {
             </Button>
             <Button
               size="sm"
-              variant="default"
+              variant={addedProduct ? 'outline' : 'default'}
               onClick={() => addToCart(product)}
             >
-              <ShoppingCartIcon size={14} />
+              {addedProduct ? (
+                <CheckIcon size={14} />
+              ) : (
+                <ShoppingCartIcon size={14} />
+              )}
             </Button>
           </div>
         </div>
